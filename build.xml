@@ -1,0 +1,37 @@
+<project basedir="." default="build" name="JavaParser2">
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.7"/>
+    <property name="source" value="1.7"/>
+
+
+    <path id="JavaParser2.classpath">
+        <pathelement location="libs/plantuml.jar"/>
+        <pathelement location="libs/antlr-4.4-complete.jar"/>
+    </path>
+
+  <target name="compile">
+     <mkdir dir="bin"/>
+  	 <javac srcdir="src" destdir="bin/" >
+	  	  <src path="src"/>
+    	  <classpath refid="JavaParser2.classpath"/>
+     </javac>
+	</target>
+
+    <target name="clean">
+      <delete dir="bin">
+ 			    <fileset dir="." includes="umlparser.jar"/>
+		  </delete>
+    </target>
+
+    <target depends="clean" name="cleanall"/>
+
+    <target name="build" depends="clean,compile">
+    	<jar destfile="./umlparser.jar"  basedir="bin" >
+    		<zipgroupfileset dir="libs" includes="*.jar"/>
+    		<manifest>
+    			<attribute name="Main-Class" value="com.assignment.translator.Main"/>
+	    	</manifest>
+   		</jar>
+	</target>
+
+</project>
